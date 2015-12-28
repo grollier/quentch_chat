@@ -55,9 +55,15 @@ function parseGame(game){
         if(err){
           return console.log(err);
         }
+<<<<<<< HEAD
     });
   console.log(game);
   console.log("The file was saved!!");
+=======
+        console.log("The file was saved!!");
+    });
+  console.log(game);
+>>>>>>> c786a6d3c0c97baec092c80d68f1d3e103040f5c
   console.log('=====================');
 }
 
@@ -128,8 +134,11 @@ function parseSchedule(){
       dVisitOutcome = "--";
     }
 
+<<<<<<< HEAD
     var game.details.dateB = moment(),subtract('', 15);
     var game.dtails.dateA = moment().fromNow();
+=======
+>>>>>>> c786a6d3c0c97baec092c80d68f1d3e103040f5c
 
     var game = {
         "visitor": {
