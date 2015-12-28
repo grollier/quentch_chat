@@ -38,34 +38,35 @@ var gamePath = jsonPath + 'games/'
 var weeksPath = gamePath + 'weeks/'
 
 
+
 function parseWeeks(game) {
-  var filename = game.details.date + '.json'
-  var json = fs.writeFile( weeksPath + filename, JSON.stringify(game), 'utf8', function(err){
+  /*var start = moment().add({day: 15, months:12});
+  var end = moment().toNow();
+  var finalDate = start.to(end);*/
+  var filename = game.details.week + '.json'
+  var jsonWeek = fs.writeFile( weeksPath + filename, JSON.stringify(game), 'utf8', function(err){
         if(err){
           return console.log(err);
         }
-          console.log('a new function');
-    });
 
+  });console.log(game);
+
+    console.log('================');
 }
 
 function parseGame(game){
   var filename = game.details.gamecode + '.json'
-  var json = fs.writeFile( gamePath + filename, JSON.stringify(game), 'utf8', function(err){
+  var jsonGame = fs.writeFile( gamePath + filename, JSON.stringify(game), 'utf8', function(err){
         if(err){
           return console.log(err);
         }
-<<<<<<< HEAD
-    });
-  console.log(game);
-  console.log("The file was saved!!");
-=======
-        console.log("The file was saved!!");
-    });
-  console.log(game);
->>>>>>> c786a6d3c0c97baec092c80d68f1d3e103040f5c
+
+  });
+  console.log('');
   console.log('=====================');
-}
+  };
+  console.log("The file was saved!!");
+
 
 function parseSchedule(){
   //console.log(Nodes.toString());
@@ -111,10 +112,13 @@ function parseSchedule(){
       homeTeamScore = '--';
     }
 
+  //  var week = moment().week();
     var gameGlobalID = xpath.select1("gamecode/@global-id", node).value;
     var detailsYear = xpath.select1("date/@year", node).value;
     var detailsMonth = xpath.select1('date/@month', node).value;
+    var detailsDate = xpath.select1('date/@date', node).value;
     var detailsDay = xpath.select1('date/@day', node).value;
+    var detailsWeek = moment().isoWeek(xpath.select1('date',  node).value);
     var dTotalQuartersRaw = xpath.select1('total-quarters/@total', node);
     if(dTotalQuartersRaw){
       dTotalQuarters = dTotalQuartersRaw.value;
@@ -134,11 +138,7 @@ function parseSchedule(){
       dVisitOutcome = "--";
     }
 
-<<<<<<< HEAD
-    var game.details.dateB = moment(),subtract('', 15);
-    var game.dtails.dateA = moment().fromNow();
-=======
->>>>>>> c786a6d3c0c97baec092c80d68f1d3e103040f5c
+
 
     var game = {
         "visitor": {
@@ -167,8 +167,10 @@ function parseSchedule(){
             "date": {
               "year": detailsYear,
               "month": detailsMonth,
+              "date": detailsDate,
               "day": detailsDay,
             },
+            "week": detailsWeek,
             "total-quarters": dTotalQuarters,
             "outcome-home": dHomeOutcome,
             "outcome-visit":dVisitOutcome,
@@ -184,6 +186,7 @@ function parseSchedule(){
     parseGame(game);
     parseWeeks(game);
 
+
   });
 
 
@@ -195,8 +198,6 @@ function parseSchedule(){
     });
 
 }
-
-
 
 parseSchedule();
 
